@@ -28,21 +28,26 @@ import { ScheduleModule } from '@nestjs/schedule';
 
       inject: [ConfigService],
 
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
+      useFactory: (config: ConfigService) => {
+        const databaseUrl = config.get<string>('DATABASE_URL');
 
-        url: config.get<string>('DATABASE_URL'),
+        if (!databaseUrl) {
+          throw new Error(
+            'DATABASE_URL is not defined. Set the DATABASE_URL environment variable in your deployment environment.',
+          );
+        }
 
-        ssl: {
-          rejectUnauthorized: false,
-        },
-
-        entities: [User, Item, Tag, Reminder, PasswordReset],
-
-        synchronize: false,
-
-        autoLoadEntities: true,
-      }),
+        return {
+          type: 'postgres',
+          url: databaseUrl,
+          ssl: {
+            rejectUnauthorized: false,
+          },
+          entities: [User, Item, Tag, Reminder, PasswordReset],
+          synchronize: false,
+          autoLoadEntities: true,
+        };
+      },
     }),
 
     AuthModule,

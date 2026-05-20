@@ -3,11 +3,16 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error(
+    'DATABASE_URL is not defined. Set DATABASE_URL in your environment or .env before running migrations.',
+  );
+}
+
 export default new DataSource({
   type: 'postgres',
-
-  url: process.env.DATABASE_URL,
-
+  url: databaseUrl,
   ssl: {
     rejectUnauthorized: false,
   },
