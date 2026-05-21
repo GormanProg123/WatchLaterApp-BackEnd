@@ -44,7 +44,6 @@ export class TextBeeService {
 
       console.log('📨 TextBee response:', response.data);
 
-      // более гибкая проверка
       if (response.status >= 200 && response.status < 300) {
         return true;
       }

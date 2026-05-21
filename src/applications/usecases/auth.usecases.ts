@@ -65,6 +65,7 @@ export class AuthUseCases {
     }
 
     const token = generateToken(this.jwtService, user);
+
     return { user: excludePassword(user), token };
   }
 

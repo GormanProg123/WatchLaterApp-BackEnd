@@ -1,4 +1,3 @@
-// src/infrastructure/services/notification.service.ts
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, IsNull, LessThanOrEqual } from 'typeorm';
@@ -22,18 +21,16 @@ export class NotificationService {
     private readonly userRepo: Repository<User>,
   ) {}
 
-  // Вызывается из ItemsUseCases.create() — создаёт reminder за 2 дня до remindAt
   async scheduleReminderForItem(item: Item): Promise<void> {
     if (!item.remindAt) return;
 
     const deadline = new Date(item.remindAt);
 
-    const daysBefore = [3, 2, 1]; // можно менять
+    const daysBefore = [3, 2, 1]; 
 
     for (const day of daysBefore) {
       const date = new Date(deadline.getTime() - day * 24 * 60 * 60 * 1000);
 
-      // если дата уже прошла — пропускаем
       if (date < new Date()) continue;
 
       const exists = await this.reminderRepo.findOne({
@@ -57,7 +54,6 @@ export class NotificationService {
     }
   }
 
-  // Каждые 5 минут — отправляем накопленные напоминания
   @Cron('*/5 * * * *')
   async sendPendingReminders(): Promise<void> {
     const reminders = await this.reminderRepo.find({
@@ -84,7 +80,6 @@ export class NotificationService {
         !user.notificationsEnabled ||
         !Expo.isExpoPushToken(user.pushToken)
       ) {
-        // Пользователь отключил уведомления — просто помечаем sent
         reminder.sent = true;
         await this.reminderRepo.save(reminder);
         continue;
