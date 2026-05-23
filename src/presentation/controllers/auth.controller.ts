@@ -15,6 +15,10 @@ import { SignUpDto } from 'src/domain/dto/sign-up.dto';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authUseCases: AuthUseCases) {}
+  @Get('ping')
+  ping() {
+    return { ok: true };
+  }
 
   @Post('sign-up')
   signUp(@Body() dto: SignUpDto) {
