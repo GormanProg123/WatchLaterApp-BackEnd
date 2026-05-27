@@ -1,98 +1,143 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+<img src="https://img.shields.io/badge/NestJS-11-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" />
+<img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/PostgreSQL-Neon-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img src="https://img.shields.io/badge/Deployed-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" />
+<img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
+🎬 WatchLater — Backend
+Save links. Get reminded. Watch later.
+REST API for the WatchLater mobile app — a personal watch list manager with push notifications, SMS password recovery and automatic thumbnail fetching.
+📱 Mobile App · 📖 API Docs · 🐛 Report Bug
+</div>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+✨ Features
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+🔐 JWT Authentication — register, login, secure token-based sessions
+🔗 Link saving — save any URL with auto-fetched title and thumbnail
+📋 Status management — mark items as watched / pending
+🗑️ Trash & Restore — soft delete with recovery option
+🔔 Push Notifications — scheduled reminders via Expo SDK
+📱 SMS OTP — password reset via TextBee SMS gateway
+📞 Profile management — update phone number and email
+📄 Swagger UI — full interactive API documentation
+💓 Keepalive endpoint — prevents cold starts on free hosting
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+🛠 Tech Stack
+LayerTechnologyFrameworkNestJS 11LanguageTypeScript 5.7DatabasePostgreSQL (Neon)ORMTypeORM 0.3AuthJWT (@nestjs/jwt)SMSTextBee APIPushExpo Server SDKScheduler@nestjs/scheduleValidationclass-validatorDocsSwagger (OpenAPI)HostingRender
 
-## Project setup
+📡 API Reference
+🔑 Auth /auth
+MethodEndpointAuthDescriptionPOST/auth/sign-up❌Register new userPOST/auth/sign-in❌Login and get JWT tokenPOST/auth/logout✅LogoutGET/auth/me✅Get current user profilePOST/auth/forgot-password❌Send OTP to phone numberPOST/auth/verify-otp❌Verify OTP codePOST/auth/reset-password❌Reset password with OTPGET/auth/ping❌Health check / keepalive
+📦 Items /items
+MethodEndpointDescriptionPOST/itemsSave new linkGET/itemsGet all itemsGET/items/:idGet single itemPATCH/items/:id/statusUpdate watch statusDELETE/items/:idMove to trashGET/items/trashGet trashed itemsPATCH/items/:id/restoreRestore from trashPATCH/items/notifications/toggleEnable / disable notificationsPATCH/items/push-tokenUpdate Expo push token
+👤 User /user
+MethodEndpointDescriptionPATCH/user/phoneUpdate phone numberPATCH/user/emailUpdate email address
 
-```bash
-$ pnpm install
-```
+Full interactive docs available at /api/docs
 
-## Compile and run the project
 
-```bash
-# development
-$ pnpm run start
+🚀 Getting Started
+Prerequisites
 
-# watch mode
-$ pnpm run start:dev
+Node.js 18+
+pnpm
+PostgreSQL database
 
-# production mode
-$ pnpm run start:prod
-```
+Installation
+bash# Clone the repository
+git clone https://github.com/GormanProg123/WatchLaterApp-BackEnd.git
+cd WatchLaterApp-BackEnd
 
-## Run tests
+# Install dependencies
+pnpm install
+Environment Variables
+Create a .env file in the root directory:
+env# Database
+DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 
-```bash
-# unit tests
-$ pnpm run test
+# JWT
+JWT_SECRET=your_super_secret_key
+JWT_EXPIRES_IN=7d
 
-# e2e tests
-$ pnpm run test:e2e
+# Server
+PORT=3000
 
-# test coverage
-$ pnpm run test:cov
-```
+# TextBee SMS Gateway
+TEXTBEE_API_KEY=your_textbee_api_key
+TEXTBEE_DEVICE_ID=your_textbee_device_id
+Running the App
+bash# Development (watch mode)
+pnpm start:dev
 
-## Deployment
+# Production build
+pnpm build
+pnpm start:prod
+Database Migrations
+bash# Generate a new migration
+pnpm migration:generate
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+# Apply all pending migrations
+pnpm migration:run
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# Revert the last migration
+pnpm migration:revert
 
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
+📁 Project Structure
+src/
+├── applications/
+│   └── usecases/               # Business logic layer
+│       ├── auth.usecases.ts    # Auth: sign-up, sign-in, OTP, reset
+│       ├── items.usecases.ts   # Items: CRUD, trash, notifications
+│       └── user.usecases.ts    # User: phone & email update
+│
+├── domain/
+│   └── dto/                    # Request validation schemas
+│
+├── infrastructure/
+│   ├── database/
+│   │   ├── migrations/         # TypeORM migrations
+│   │   └── schemas/            # Entities: User, Item, Tag, Reminder, PasswordReset
+│   └── services/
+│       ├── TextBee.service.ts       # SMS OTP sending
+│       ├── notification.service.ts  # Expo push notifications
+│       └── thumbnail.service.ts     # URL thumbnail fetching
+│
+├── presentation/
+│   ├── controllers/            # HTTP route handlers
+│   └── modules/                # NestJS dependency injection modules
+│
+└── shared/
+    └── utils/                  # generateToken, excludePassword
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+☁️ Deployment
+The API is hosted on Render and connected to a Neon PostgreSQL database.
+Render Environment Variables
+Set these in your Render dashboard under Environment:
+DATABASE_URL
+JWT_SECRET
+JWT_EXPIRES_IN
+PORT
+TEXTBEE_API_KEY
+TEXTBEE_DEVICE_ID
 
-## Resources
+⚠️ Free tier note: Render spins down the server after 15 minutes of inactivity. The mobile app sends a keepalive ping to GET /auth/ping every 14 minutes to prevent cold starts.
 
-Check out a few resources that may come in handy when working with NestJS:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+🤝 Contributing
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-## Support
+Fork the repository
+Create your feature branch: git checkout -b feature/amazing-feature
+Commit your changes: git commit -m 'Add amazing feature'
+Push to the branch: git push origin feature/amazing-feature
+Open a Pull Request
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+📄 License
+This project is open source and available under the MIT License.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+<div align="center">
+Made with ❤️ using NestJS
+⭐ Star this repo if you find it useful!
+</div>
