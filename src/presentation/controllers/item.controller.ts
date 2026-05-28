@@ -45,6 +45,12 @@ export class ItemController {
     return this.itemsUseCases.findAll(userId);
   }
 
+  @Get('trash')
+  findTrash(@Headers('authorization') auth: string) {
+    const userId = this.getUserId(auth);
+    return this.itemsUseCases.findTrash(userId);
+  }
+
   @Get(':id')
   findOne(@Headers('authorization') auth: string, @Param('id') itemId: string) {
     const userId = this.getUserId(auth);
@@ -59,12 +65,6 @@ export class ItemController {
   ) {
     const userId = this.getUserId(auth);
     return this.itemsUseCases.updateStatus(userId, itemId, status);
-  }
-
-  @Get('trash')
-  findTrash(@Headers('authorization') auth: string) {
-    const userId = this.getUserId(auth);
-    return this.itemsUseCases.findTrash(userId);
   }
 
   @Patch(':id/restore')
